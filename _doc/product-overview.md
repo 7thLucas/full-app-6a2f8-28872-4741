@@ -32,3 +32,4 @@ A branded, app-like portal to the ShopCart BD storefront — bridging the gap be
 - Branded splash screen: logo, app name, tagline, countdown, "Open Store" button
 - No in-app navigation UI — the store website handles all navigation internally
 - Redirect fires via JS + `<meta>` fallback for maximum compatibility
+- **PWA**: `manifest.webmanifest` (standalone display, theme #E63946, 192px + 512px icons), `sw.js` service worker with cache-first offline shell, all PWA meta tags in `<head>` including Apple touch icon — browser shows native "Install App" prompt on Android Chrome and "Add to Home Screen" on iOS Safari
