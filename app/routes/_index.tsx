@@ -1,157 +1,111 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useConfigurables } from "~/modules/configurables";
 
 /**
- * LoadingScreen — shown while the webview (iframe) is loading.
- * Fades out smoothly once the content is ready.
+ * RedirectPage — shows a branded loading screen briefly, then redirects
+ * the user directly to the store URL. This avoids X-Frame-Options / CSP
+ * blocking that prevents the store from being embedded in an iframe.
  */
-function LoadingScreen({
-  appName,
-  tagline,
-  logoUrl,
-  bgColor,
-  spinnerColor,
-  visible,
-}: {
-  appName: string;
-  tagline?: string;
-  logoUrl?: string;
-  bgColor: string;
-  spinnerColor: string;
-  visible: boolean;
-}) {
+export default function IndexPage() {
+  const { config, loading } = useConfigurables();
+  const [countdown, setCountdown] = useState(2);
+
+  const appName = config?.appName || "ShopCart BD";
+  const storeUrl = config?.webviewUrl || "https://shopcartbd.vercel.app/";
+  const logoUrl = config?.logoUrl;
+  const tagline = config?.tagline || "Your one-stop online shop";
+  const bgColor = config?.loadingBackgroundColor || "#FFFFFF";
+  const accentColor = config?.loadingSpinnerColor || "#E63946";
+
+  // Redirect as soon as configurables are resolved
+  useEffect(() => {
+    if (loading) return;
+
+    // Immediately kick off the redirect
+    const redirectTimer = setTimeout(() => {
+      window.location.replace(storeUrl);
+    }, 1800);
+
+    // Countdown display
+    const tick = setInterval(() => {
+      setCountdown((c) => Math.max(0, c - 1));
+    }, 1000);
+
+    return () => {
+      clearTimeout(redirectTimer);
+      clearInterval(tick);
+    };
+  }, [loading, storeUrl]);
+
+  if (loading) {
+    return <div className="fixed inset-0" style={{ backgroundColor: bgColor }} />;
+  }
+
+  const showLogo = logoUrl && logoUrl !== "FILL_LOGO_URL_HERE";
+
   return (
-    <div
-      className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 transition-opacity duration-500"
-      style={{
-        backgroundColor: bgColor,
-        opacity: visible ? 1 : 0,
-        pointerEvents: visible ? "auto" : "none",
-      }}
-      aria-hidden={!visible}
-    >
-      {/* Logo */}
-      {logoUrl && logoUrl !== "FILL_LOGO_URL_HERE" && (
-        <img
-          src={logoUrl}
-          alt={appName}
-          className="h-16 w-auto object-contain"
-          draggable={false}
-        />
-      )}
+    <>
+      {/* Meta refresh as a fallback in case JS is blocked */}
+      <meta httpEquiv="refresh" content={`2;url=${storeUrl}`} />
 
-      {/* App name */}
-      {(!logoUrl || logoUrl === "FILL_LOGO_URL_HERE") && (
-        <span
-          className="text-2xl font-bold tracking-tight select-none"
-          style={{ color: spinnerColor }}
-        >
-          {appName}
-        </span>
-      )}
-
-      {/* Spinner */}
       <div
-        className="h-10 w-10 rounded-full border-4 border-transparent animate-spin"
-        style={{
-          borderTopColor: spinnerColor,
-          borderRightColor: `${spinnerColor}55`,
-        }}
-        role="status"
-        aria-label="Loading"
-      />
+        className="fixed inset-0 flex flex-col items-center justify-center gap-6 px-6"
+        style={{ backgroundColor: bgColor }}
+      >
+        {/* Logo or app name */}
+        {showLogo ? (
+          <img
+            src={logoUrl}
+            alt={appName}
+            className="h-20 w-auto object-contain"
+            draggable={false}
+          />
+        ) : (
+          <span
+            className="text-3xl font-bold tracking-tight select-none"
+            style={{ color: accentColor }}
+          >
+            {appName}
+          </span>
+        )}
 
-      {/* Tagline */}
-      {tagline && (
+        {/* Tagline */}
         <p
-          className="text-sm font-medium tracking-wide select-none"
-          style={{ color: `${spinnerColor}99` }}
+          className="text-sm font-medium tracking-wide select-none text-center max-w-xs"
+          style={{ color: `${accentColor}99` }}
         >
           {tagline}
         </p>
-      )}
-    </div>
-  );
-}
 
-/**
- * WebviewFrame — the full-screen iframe.
- * Fires onLoad when the target page finishes loading.
- */
-function WebviewFrame({
-  url,
-  onLoad,
-  title,
-}: {
-  url: string;
-  onLoad: () => void;
-  title: string;
-}) {
-  return (
-    <iframe
-      src={url}
-      title={title}
-      onLoad={onLoad}
-      className="absolute inset-0 h-full w-full border-none"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; payment"
-      sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
-      referrerPolicy="no-referrer-when-downgrade"
-    />
-  );
-}
-
-export default function IndexPage() {
-  const { config, loading } = useConfigurables();
-
-  const [webviewLoaded, setWebviewLoaded] = useState(false);
-  const [showLoading, setShowLoading] = useState(true);
-  const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Once the iframe fires onLoad, start the fade-out transition
-  function handleWebviewLoad() {
-    setWebviewLoaded(true);
-    // Give the CSS opacity transition time to complete before unmounting loading screen
-    hideTimerRef.current = setTimeout(() => setShowLoading(false), 550);
-  }
-
-  useEffect(() => {
-    return () => {
-      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-    };
-  }, []);
-
-  // While configurables are still fetching, show a bare white screen
-  if (loading) {
-    return <div className="fixed inset-0 bg-white" />;
-  }
-
-  const appName = config?.appName || "ShopCart BD";
-  const webviewUrl = config?.webviewUrl || "https://shopcartbd.vercel.app/";
-  const logoUrl = config?.logoUrl;
-  const tagline = config?.tagline;
-  const bgColor = config?.loadingBackgroundColor || "#FFFFFF";
-  const spinnerColor = config?.loadingSpinnerColor || "#E63946";
-
-  return (
-    <div className="fixed inset-0 overflow-hidden">
-      {/* Webview iframe — always mounted so it starts loading immediately */}
-      <WebviewFrame
-        url={webviewUrl}
-        title={appName}
-        onLoad={handleWebviewLoad}
-      />
-
-      {/* Loading overlay — fades out after the iframe loads */}
-      {showLoading && (
-        <LoadingScreen
-          appName={appName}
-          tagline={tagline}
-          logoUrl={logoUrl}
-          bgColor={bgColor}
-          spinnerColor={spinnerColor}
-          visible={!webviewLoaded}
+        {/* Spinner */}
+        <div
+          className="h-10 w-10 rounded-full border-4 border-transparent animate-spin"
+          style={{
+            borderTopColor: accentColor,
+            borderRightColor: `${accentColor}55`,
+          }}
+          role="status"
+          aria-label="Loading"
         />
-      )}
-    </div>
+
+        {/* Redirect notice */}
+        <p
+          className="text-xs select-none"
+          style={{ color: `${accentColor}66` }}
+        >
+          Redirecting you to the store
+          {countdown > 0 ? ` in ${countdown}…` : "…"}
+        </p>
+
+        {/* Manual fallback button */}
+        <a
+          href={storeUrl}
+          className="mt-2 px-6 py-2 rounded-full text-sm font-semibold transition-opacity hover:opacity-80 active:opacity-60"
+          style={{ backgroundColor: accentColor, color: "#fff" }}
+        >
+          Open Store
+        </a>
+      </div>
+    </>
   );
 }
