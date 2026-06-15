@@ -1,40 +1,76 @@
 <style>
-  .mode-landscape .sl-foundation-layout { display: flex; flex-direction: row; align-items: stretch; min-height: 100%; }
-  .mode-landscape .sl-content-panel { width: 55%; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
-  .mode-landscape .sl-visual-panel { width: 45%; min-height: 0; }
-  .mode-portrait .sl-foundation-layout { display: flex; flex-direction: column; min-height: 100%; }
-  .mode-portrait .sl-content-panel { padding: 2rem 1.5rem; }
-  .mode-portrait .sl-visual-panel { min-height: 280px; }
+  .mode-landscape .sl-layout { flex-direction: row; }
+  .mode-portrait .sl-layout { flex-direction: column; }
+  .mode-landscape .sl-problem { width: 50%; }
+  .mode-portrait .sl-problem { width: 100%; flex: 1; }
+  .mode-landscape .sl-solution { width: 50%; }
+  .mode-portrait .sl-solution { width: 100%; flex: 1; }
 </style>
 <section class="w-full h-full overflow-auto bg-white">
-  <div class="sl-foundation-layout">
-    <div class="sl-content-panel">
-      <div class="flex items-center justify-between mb-4">
-        <span class="inline-block text-xs font-semibold tracking-widest uppercase" style="color:#3B82F6;">Foundation</span>
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 border rounded-full" style="background-color:#3B82F6; border-color:#3B82F630;">
-          <span class="text-xs font-semibold" style="color:#ffffff;">Validated</span>
+  <div class="sl-layout flex h-full">
 
-        </span>
+    <!-- Problem panel (dark) -->
+    <div class="sl-problem flex flex-col justify-center p-10 bg-slate-900">
+      <div class="mb-5">
+        <span class="px-3 py-1 text-xs font-black uppercase tracking-widest bg-red-500 text-white rounded-full">The Problem</span>
       </div>
-      <h1 class="text-3xl font-bold text-slate-900 leading-tight mb-8">Managing online inventory and customer experience efficiently</h1>
-      <div class="space-y-5">
-        <div class="border-l-4 pl-4 relative" style="border-color:#F43F5E;">
-          <h2 class="text-sm font-semibold uppercase tracking-wide mb-1" style="color:#E11D48;">The Problem</h2>
-          <p class="text-slate-700 leading-relaxed text-sm">Store owners face significant challenges in managing their online presence: scattered product information, lack of customer engagement tools, and difficulty monitoring sales performance. This results in abandoned carts, low conversion rates, and missed revenue opportunities.</p>
-        </div>
-        <div class="border-l-4 pl-4 relative" style="border-color:#3B82F6;">
-          <h2 class="text-sm font-semibold uppercase tracking-wide mb-1" style="color:#3B82F6;">The Solution</h2>
-          <p class="text-slate-700 leading-relaxed text-sm">Store owners struggle with disorganized product catalogs, poor user experience, and difficulty tracking customer behavior, leading to lost sales and reduced customer retention.</p>
-        </div>
-        <div class="border-l-4 border-sky-500 pl-4 relative"><h2 class="text-sm font-semibold text-sky-600 uppercase tracking-wide mb-1">Target Audience</h2><p class="text-slate-700 leading-relaxed text-sm">E-commerce entrepreneurs and small-to-medium business owners in Bangladesh</p></div>
-        <div class="border-l-4 border-amber-500 pl-4 relative"><h2 class="text-sm font-semibold text-amber-600 uppercase tracking-wide mb-1">Personal Motivation</h2><p class="text-slate-700 leading-relaxed text-sm">Empower retailers to compete in the digital economy with professional, affordable tools</p></div>
+      <h2 class="text-2xl font-black text-white leading-snug mb-6">
+        Shopping your store is one browser trip too many.
+      </h2>
+      <ul class="space-y-4">
+        <li class="flex gap-3 items-start">
+          <span class="text-red-400 font-black text-base mt-0.5 leading-tight">✕</span>
+          <p class="text-sm text-slate-300 leading-relaxed">Customers open a browser, search, and navigate — just to reach your store</p>
+        </li>
+        <li class="flex gap-3 items-start">
+          <span class="text-red-400 font-black text-base mt-0.5 leading-tight">✕</span>
+          <p class="text-sm text-slate-300 leading-relaxed">Browser tabs get lost — and customers don't come back</p>
+        </li>
+        <li class="flex gap-3 items-start">
+          <span class="text-red-400 font-black text-base mt-0.5 leading-tight">✕</span>
+          <p class="text-sm text-slate-300 leading-relaxed">No dedicated home-screen icon — brand stays out of sight, out of mind</p>
+        </li>
+        <li class="flex gap-3 items-start">
+          <span class="text-red-400 font-black text-base mt-0.5 leading-tight">✕</span>
+          <p class="text-sm text-slate-300 leading-relaxed">Missed return visits mean missed revenue</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Solution panel (white) -->
+    <div class="sl-solution flex flex-col justify-center p-10 bg-white">
+      <div class="mb-5">
+        <span class="px-3 py-1 text-xs font-black uppercase tracking-widest bg-green-600 text-white rounded-full">The Solution</span>
       </div>
-      <div class="mt-6 flex flex-wrap gap-2"><span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">e-commerce</span><span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">inventory management</span><span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">customer engagement</span><span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">Bangladesh retail</span><span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">digital transformation</span></div>
-      <div class="mt-8"><data-attribution /></div>
+      <h2 class="text-2xl font-black text-slate-900 leading-snug mb-6">
+        A branded app that puts ShopCart BD one tap from the home screen.
+      </h2>
+      <ul class="space-y-4">
+        <li class="flex gap-3 items-start">
+          <span class="text-green-600 font-black text-base mt-0.5 leading-tight">✓</span>
+          <p class="text-sm text-slate-600 leading-relaxed">Opens directly to shopcartbd.vercel.app — no URL typing needed</p>
+        </li>
+        <li class="flex gap-3 items-start">
+          <span class="text-green-600 font-black text-base mt-0.5 leading-tight">✓</span>
+          <p class="text-sm text-slate-600 leading-relaxed">Full-screen shopping experience with no browser chrome or tab clutter</p>
+        </li>
+        <li class="flex gap-3 items-start">
+          <span class="text-green-600 font-black text-base mt-0.5 leading-tight">✓</span>
+          <p class="text-sm text-slate-600 leading-relaxed">App icon on the home screen keeps the brand visible every day</p>
+        </li>
+        <li class="flex gap-3 items-start">
+          <span class="text-green-600 font-black text-base mt-0.5 leading-tight">✓</span>
+          <p class="text-sm text-slate-600 leading-relaxed">Feels native — customers trust and return more often</p>
+        </li>
+      </ul>
+      <div class="mt-6 rounded-2xl overflow-hidden" style="height:120px;">
+        <img
+          src="https://api.qb-deck.quantumbyte.ai/common/image-generation?prompt=Smartphone+home+screen+with+a+green+branded+shopping+app+icon%2C+clean+minimal+flat+design%2C+white+background%2C+professional+concept+art"
+          class="w-full h-full object-cover"
+          alt="App on home screen"
+        />
+      </div>
     </div>
-    <div class="sl-visual-panel relative">
-      <img src="http://localhost:8001/common/image-generation?prompt=frustrated+store+owner+managing+multiple+spreadsheets+and+inventory+systems&amp;keyspace=kda1hq63&amp;user_id=4741" alt="visual" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent opacity-40"></div>
-    </div>
+
   </div>
 </section>
