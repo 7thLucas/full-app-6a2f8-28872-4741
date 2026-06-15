@@ -2,16 +2,18 @@
 
 ## Product
 **Name**: ShopCart BD  
-**Type**: WebView Wrapper App  
+**Type**: Branded Store Launcher App  
 **Target URL**: https://shopcartbd.vercel.app/  
 
 ## What It Does
-ShopCart BD is a dedicated webview app that launches directly into the ShopCart BD e-commerce platform at https://shopcartbd.vercel.app/. When a user opens the app, the full shopping website loads in a seamless, full-screen experience — no browser required, no URL to type.
+ShopCart BD is a dedicated branded launcher that sends customers directly to the ShopCart BD e-commerce store at https://shopcartbd.vercel.app/. When a user opens the app, a branded splash screen appears briefly, then the app redirects straight to the live store — one tap from the home screen to shopping.
 
 ## Core Behaviour
-- On launch → immediately opens https://shopcartbd.vercel.app/ in a full-screen webview
-- No additional navigation screens or splash pages beyond branded app shell
-- Always loads live content from the web — any store update is instantly reflected in the app
+- On launch → shows branded splash screen with app name, logo, and countdown
+- After ~1.8 s → redirects to https://shopcartbd.vercel.app/ via JS (`window.location.replace`)
+- `<meta http-equiv="refresh">` fallback ensures redirect works even without JS
+- Manual "Open Store" button available on the splash for immediate tap-through
+- Always loads live content — any store update is instantly reflected with no app update needed
 
 ## Users / Audience
 - **Primary**: Customers of the ShopCart BD online store in Bangladesh
