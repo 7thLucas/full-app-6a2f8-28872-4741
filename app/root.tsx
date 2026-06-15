@@ -15,6 +15,17 @@ import { ThemeProvider } from "next-themes";
 import { ConfigurablesProvider, ConfigurablesCSSBridge } from "~/modules/configurables";
 import { GlobalError } from "./error";
 
+function PWAServiceWorker() {
+  useEffect(() => {
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch((err) => {
+        console.warn("Service worker registration failed:", err);
+      });
+    }
+  }, []);
+  return null;
+}
+
 function ErrorReporter({ error }: { error: any }) {
   useEffect(() => {
     if (typeof window !== "undefined" && window.parent !== window) {
@@ -88,10 +99,19 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* PWA */}
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <meta name="theme-color" content="#E63946" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="ShopCart BD" />
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
         <Meta />
         <Links />
       </head>
       <body suppressHydrationWarning>
+        <PWAServiceWorker />
         <RouteChangeReporter />
         <ConfigurablesProvider>
           <ConfigurablesCSSBridge />
