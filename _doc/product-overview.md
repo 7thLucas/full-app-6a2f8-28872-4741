@@ -28,6 +28,7 @@ A branded, app-like portal to the ShopCart BD storefront — bridging the gap be
 - Bangladeshi market focus (BDT currency, local shopper audience)
 
 ## Scope (MVP)
-- Single-screen app: full-screen webview pointed at https://shopcartbd.vercel.app/
-- App icon and branded splash screen
+- Single-screen branded splash → auto-redirect to https://shopcartbd.vercel.app/
+- Branded splash screen: logo, app name, tagline, countdown, "Open Store" button
 - No in-app navigation UI — the store website handles all navigation internally
+- Redirect fires via JS + `<meta>` fallback for maximum compatibility
