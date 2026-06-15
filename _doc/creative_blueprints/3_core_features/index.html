@@ -1,0 +1,51 @@
+<style>
+  .mode-landscape .sl-grid { grid-template-columns: repeat(2, 1fr); }
+  .mode-portrait .sl-grid { grid-template-columns: 1fr; }
+</style>
+<section class="w-full h-full overflow-auto bg-white">
+  <div class="flex flex-col h-full p-10">
+
+    <!-- Header -->
+    <div class="mb-5">
+      <span class="px-3 py-1 text-xs font-black uppercase tracking-widest bg-green-50 text-green-700 rounded-full border border-green-100">Core Features</span>
+      <h2 class="text-3xl font-black text-slate-900 mt-3 leading-tight">
+        Everything the shopper needs.<br/>Nothing they don't.
+      </h2>
+    </div>
+
+    <!-- Persona chips -->
+    <div class="flex gap-2 mb-5">
+      <span class="px-4 py-1.5 text-sm font-bold bg-green-600 text-white rounded-full">🛒 Shopper</span>
+      <span class="px-4 py-1.5 text-sm font-semibold bg-slate-100 text-slate-500 rounded-full">🏪 Store Owner</span>
+    </div>
+
+    <!-- Feature grid -->
+    <div class="sl-grid grid gap-4 flex-1">
+
+      <div class="bg-slate-50 rounded-2xl p-5 flex flex-col gap-2 border border-slate-100">
+        <span class="text-2xl">⚡</span>
+        <h3 class="font-black text-slate-900 text-sm">Instant Launch</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Opens ShopCart BD the moment the icon is tapped — zero steps between intent and shopping.</p>
+      </div>
+
+      <div class="bg-green-600 rounded-2xl p-5 flex flex-col gap-2">
+        <span class="text-2xl">📱</span>
+        <h3 class="font-black text-white text-sm">Full-Screen Webview</h3>
+        <p class="text-xs text-green-100 leading-relaxed">The entire store fills the screen — no browser bars, no tab clutter, no distractions from the shopping experience.</p>
+      </div>
+
+      <div class="bg-slate-50 rounded-2xl p-5 flex flex-col gap-2 border border-slate-100">
+        <span class="text-2xl">🏠</span>
+        <h3 class="font-black text-slate-900 text-sm">Home-Screen Presence</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Installs like a native app — the store icon lives on the customer's home screen, always one tap away.</p>
+      </div>
+
+      <div class="bg-slate-50 rounded-2xl p-5 flex flex-col gap-2 border border-slate-100">
+        <span class="text-2xl">🔄</span>
+        <h3 class="font-black text-slate-900 text-sm">Always Up-to-Date</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Loads live content directly from the web — promotions, stock changes, and pricing reflect instantly without any app update.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
