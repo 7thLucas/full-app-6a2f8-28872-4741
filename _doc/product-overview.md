@@ -2,7 +2,7 @@
 
 ## Product
 **Name**: ShopCart BD  
-**Type**: Branded Store Launcher App  
+**Type**: Branded Store Launcher PWA (Progressive Web App)  
 **Target URL**: https://shopcartbd.vercel.app/  
 
 ## What It Does
